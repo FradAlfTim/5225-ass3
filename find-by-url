@@ -1,0 +1,46 @@
+import AWS from 'aws-sdk';
+
+const dynamodb = new AWS.DynamoDB.DocumentClient();
+
+export const handler = async (event) => {
+  // Extract the thumbnail URL from the request
+  const thumbnailUrl = event.queryStringParameters.thumbnail_url;
+
+  // Define the parameters to query the DynamoDB table
+  const params = {
+    TableName: 'YourDynamoDBTableName',  // Replace with your DynamoDB table name
+    Key: {
+      'thumbnail_url': thumbnailUrl
+    }
+  };
+
+  try {
+    // Query the DynamoDB table
+    const data = await dynamodb.get(params).promise();
+
+    // Check if the item is found
+    if (data.Item) {
+      const fullSizeUrl = data.Item.full_size_url;
+      const response = {
+        statusCode: 200,
+        body: JSON.stringify({ full_size_url: fullSizeUrl }),
+      };
+      return response;
+    } else {
+      // Return 404 if the thumbnail URL is not found
+      const response = {
+        statusCode: 404,
+        body: JSON.stringify({ error: 'Thumbnail URL not found' }),
+      };
+      return response;
+    }
+  } catch (error) {
+    console.error('Error querying DynamoDB:', error);
+    // Return 500 in case of an internal server error
+    const response = {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Internal Server Error' }),
+    };
+    return response;
+  }
+};
