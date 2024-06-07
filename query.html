@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Images - PixTag</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.528.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@4.5.7/dist/amazon-cognito-identity.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>PixTag</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="upload.html">Upload</a></li>
+                <li><a href="query.html">Query</a></li>
+                <li><a href="delete.html">Delete</a></li>
+                <li><a href="signin.html">Sign In</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="signout.html">Sign Out</a></li>
+                <li><a href="subscribe.html">Subscribe</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <h2>Query Images</h2>
+        <form id="query-form">
+            <label for="tags">Enter tags:</label>
+            <input type="text" id="tags" name="tags" placeholder="e.g., person, 1; car, 2" required>
+            <button type="submit">Search</button>
+        </form>
+        <div id="results"></div>
+        
+        <h3>Find Full-size Image from Thumbnail URL</h3>
+        <form id="thumbnail-query-form">
+            <label for="thumbnail-url">Enter thumbnail URL:</label>
+            <input type="text" id="thumbnail-url" name="thumbnail-url" placeholder="Enter the thumbnail S3 URL" required>
+            <button type="submit">Search</button>
+        </form>
+        <div id="thumbnail-result"></div>
+
+        <h3>Upload Image for Tag Query</h3>
+        <form id="image-query-form">
+            <label for="query-image">Choose an image:</label>
+            <input type="file" id="query-image" name="query-image" accept="image/*" required>
+            <button type="submit">Search by Image</button>
+        </form>
+        <div id="image-query-result"></div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 PixTag. All rights reserved.</p>
+    </footer>
+</body>
+</html>
